@@ -1,0 +1,41 @@
+Resources:
+  AppTravelsClientsMicroserviceUsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: App-Travels-Clients-Microservice-Users-${self:custom.stage}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: name
+          AttributeType: S
+        - AttributeName: sex
+          AttributeType: S
+        - AttributeName: cpf
+          AttributeType: S
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: street
+          AttributeType: S
+        - AttributeName: number
+          AttributeType: N
+        - AttributeName: neighborhood
+          AttributeType: S
+        - AttributeName: city
+          AttributeType: S
+        - AttributeName: uf
+          AttributeType: S
+        - AttributeName: zipCode
+          AttributeType: S
+        - AttributeName: complement
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: CpfIndex
+          KeySchema:
+            - AttributeName: cpf
+              KeyType: RANGE
+          Projection:
+            ProjectionType: KEYS_ONLY
