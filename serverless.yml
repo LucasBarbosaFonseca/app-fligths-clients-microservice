@@ -5,6 +5,8 @@ provider:
   stage: ${opt:stage, 'develop'}
   region: us-east-1
   runtime: nodejs18.x
+  stackTags:
+    MICROSERVICE: "clients-microservice"
 
 custom:
   stage: ${self:provider.stage}
