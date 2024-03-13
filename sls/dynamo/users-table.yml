@@ -1,0 +1,21 @@
+Resources:
+  AppTravelsClientsMicroserviceUsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: App-Travels-Clients-Microservice-Users-${self:custom.stage}
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: cpf
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH     
+      GlobalSecondaryIndexes:
+        - IndexName: CpfIndex
+          KeySchema:
+            - AttributeName: cpf
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL

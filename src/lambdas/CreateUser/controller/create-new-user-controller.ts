@@ -1,34 +1,21 @@
-import { SQSEvent, SQSBatchResponse, SQSBatchItemFailure } from 'aws-lambda';
+import { APIGatewayEvent } from 'aws-lambda';
 import { CreateNewUserUseCase } from '../useCase/create-new-user-use-case';
+import { Controller, Response } from '@common/interfaces';
+import { InvalidInputError } from '../../../common/helpers/errors/InvalidInputError';
 
-export class CreateNewUserController {
+export class CreateNewUserController implements Controller<APIGatewayEvent, Response> {
     constructor(private readonly _CreateNewUserUseCase: CreateNewUserUseCase) { }
 
-    async exec(event: SQSEvent): Promise<SQSBatchResponse> {
-        const { Records } = event;
+    async exec(event: APIGatewayEvent) {
+        if (!event.body) throw new InvalidInputError('Request body is missing!');
 
-        const batchItemFailures: SQSBatchItemFailure[] = [];
+        const body = JSON.parse(event.body);
 
-        const results = await Promise.allSettled(
-            Records.map(async (record) => {
-                const { body } = record;
-
-                const returnResult = JSON.parse(body);
-
-                return this._CreateNewUserUseCase.exec();
-            })
-        );
-
-        results.forEach((result, i) => {
-            if (result.status === 'rejected') {
-                batchItemFailures.push({
-                    itemIdentifier: Records[i].messageId,
-                });
-            }
-        });
+        const result = await this._CreateNewUserUseCase.exec({ ...body });
 
         return {
-            batchItemFailures,
+            statusCode: 201,
+            body: JSON.stringify(result),
         };
     }
 }

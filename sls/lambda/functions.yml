@@ -1,0 +1,8 @@
+CreateUser:
+  handler: src/lambdas/CreateUser/handler.handler
+  description: Handle New User Request
+  events:
+    - http:
+        path: /clients-microservice/create-user
+        method: post
+        cors: true
