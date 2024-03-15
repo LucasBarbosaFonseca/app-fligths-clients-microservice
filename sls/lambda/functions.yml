@@ -6,3 +6,19 @@ CreateUser:
         path: /clients-microservice/create-user
         method: post
         cors: true
+
+CreateUserFromQueue:
+  handler: src/lambdas/CreateUserFromQueue/handler.handler
+  description: Handle New User Request From Queue   
+  events:
+    - sqs:
+        arn: !GetAtt [NewUsersQueue, Arn]  
+        batchSize: 3
+        functionResponseType: reportBatchItemFailures  
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:Query
+      Resource: "*"
