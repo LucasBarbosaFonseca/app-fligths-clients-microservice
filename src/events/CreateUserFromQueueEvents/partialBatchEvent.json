@@ -1,0 +1,10 @@
+{
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "Records": [
+        {
+            "body": "{\"name\":\"Lucas Barbosa Fonseca\", \"sex\":\"M\", \"cpf\":\"34506158822\", \"cellphone\":\"011992111657\", \"email\":\"lufonsecabarbosa1995@gmail.com\", \"street\":\"Rua Dezenove\", \"number\":576, \"neighborhood\":\"Fazenda Aya\", \"city\":\"Suzano\", \"uf\":\"SP\", \"zipCode\":\"08650420\", \"complement\":\"Casa de tijolos\"}"
+        }
+    ]
+}

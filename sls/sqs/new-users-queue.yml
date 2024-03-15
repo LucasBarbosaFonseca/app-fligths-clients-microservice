@@ -1,0 +1,29 @@
+Resources:
+  NewUsersQueue:
+    Type: AWS::SQS::Queue
+    Properties: 
+      ContentBasedDeduplication: true
+      DelaySeconds: 0
+      FifoQueue: true
+      MessageRetentionPeriod: 1209600 # 14 dias
+      QueueName: ${self:service}-${self:custom.stage}-new-users-queue.fifo
+      VisibilityTimeout: 30
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt [NewUsersDeadLetterQueue, Arn]
+        maxReceiveCount: 4
+
+  NewUsersDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      ContentBasedDeduplication: true
+      DelaySeconds: 0
+      FifoQueue: true
+      MessageRetentionPeriod: 1209600 # 14 dias
+      QueueName: ${self:service}-${self:custom.stage}-new-users-deadLetterQueue.fifo
+
+Outputs:      
+  NewUsersQueueUrl: 
+    Description: "App Travels Clients Microservices New Users Queue URL"
+    Value: !Ref NewUsersQueue
+    Export:
+      Name: ${self:service}-${self:custom.stage}-NewUsersQueueUrl
