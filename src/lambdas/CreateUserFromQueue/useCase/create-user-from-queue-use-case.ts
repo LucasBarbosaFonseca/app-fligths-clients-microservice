@@ -1,10 +1,10 @@
-import { UseCase } from "@common/interfaces";
-import { CreateUserResponseDto, CreateUserRequestDto } from "../dtos/CreateUser.dto";
-import { UserRepository } from "@common/interfaces/repositories/UserRepository";
 import { User } from "@common/domain/User";
+import { CreateUserResponseDto, CreateUserRequestDto } from "@common/dtos/create-user.dto";
+import { UseCase } from "@common/interfaces";
+import { UserRepository } from "@common/interfaces/repositories/UserRepository";
 import { UserMapper } from "@common/mappers/UserMapper";
 
-export class CreateNewUserUseCase implements UseCase<CreateUserRequestDto, CreateUserResponseDto> {
+export class CreateUserFromQueueUseCase implements UseCase<CreateUserRequestDto, CreateUserResponseDto> {
     constructor(private readonly _userRepository: UserRepository) { }
 
     async exec(userRequest: CreateUserRequestDto) {
