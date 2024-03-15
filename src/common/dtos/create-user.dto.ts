@@ -16,7 +16,7 @@ export type CreateUserRequestDto = {
     complement: string;
 };
 
-export type CreateUserRResponseDto = {
+export type CreateUserResponseDto = {
     id: string;
     name: string;
     sex: keyof typeof SexOptionsEnum;
