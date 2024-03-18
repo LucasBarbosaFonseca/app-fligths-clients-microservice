@@ -1,5 +1,5 @@
 import { UseCase } from "@common/interfaces";
-import { CreateUserResponseDto, CreateUserRequestDto } from "../dtos/CreateUser.dto";
+import { CreateUserResponseDto, CreateUserRequestDto } from "../../../common/dtos/create-user.dto";
 import { UserRepository } from "@common/interfaces/repositories/UserRepository";
 import { User } from "@common/domain/User";
 import { UserMapper } from "@common/mappers/UserMapper";
